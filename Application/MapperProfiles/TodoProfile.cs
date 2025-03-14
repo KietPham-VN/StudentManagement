@@ -10,9 +10,21 @@ namespace StudentManagement.Application.MapperProfiles
         {
             // Map Course to CourseViewModel
             CreateMap<Course, CourseViewModel>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate));
+
+            // Map Course to CourseCreateModel destination
+            CreateMap<CourseCreateModel, Course>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CourseName))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate));
+            // Map CourseCreateModel to Course
+            CreateMap<Course, CourseCreateModel>()
+                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate));
+            CreateMap<Course, CourseViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
         }
     }
 }

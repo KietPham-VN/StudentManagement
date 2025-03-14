@@ -7,13 +7,13 @@ using StudentManagement.Infrastructures;
 namespace StudentManagement.Application.Services.Implementation
 {
     public class CourseService(
-        IApplicationDbContext _context,
-        IMapper _mapper
+        IApplicationDbContext context,
+        IMapper mapper
     ) : ICourseService
     {
         public CourseViewModel? GetCourseById(int CourseId)
         {
-            return _context.Courses
+            return context.Courses
                 .Where(course => course.Id == CourseId)
                 .Select(course => new CourseViewModel
                 {
@@ -26,10 +26,10 @@ namespace StudentManagement.Application.Services.Implementation
 
         public List<CourseViewModel> GetCourses()
         {
-            var Courses = _context.Courses.ToList();
+            var Courses = context.Courses.ToList();
             //var result = Courses.Select(course => _mapper.Map<CourseViewModel>(course)).ToList();
             // var result = _mapper.ProjectTo<CourseViewModel>(query).ToList();
-            var result = _mapper.Map<List<CourseViewModel>>(_context.Courses.ToList());
+            var result = mapper.Map<List<CourseViewModel>>(context.Courses.ToList());
 
             return result;
         }
@@ -47,21 +47,21 @@ namespace StudentManagement.Application.Services.Implementation
                 StartDate = CourseCreateModel.StartDate
             };
 
-            _context.Courses.Add(course);
-            _context.SaveChanges();
+            context.Courses.Add(course);
+            context.SaveChanges();
             return course;
         }
 
         public Course? DeleteCourse(int Id)
         {
-            var course = _context.Courses.Find(Id);
+            var course = context.Courses.Find(Id);
             if (course == null)
             {
                 return null;
             }
 
-            _context.Courses.Remove(course);
-            _context.SaveChanges();
+            context.Courses.Remove(course);
+            context.SaveChanges();
             return course;
         }
 
@@ -72,7 +72,7 @@ namespace StudentManagement.Application.Services.Implementation
                 return null;
             }
 
-            var course = _context.Courses.Find(Id);
+            var course = context.Courses.Find(Id);
             if (course == null)
             {
                 return null;
@@ -81,8 +81,8 @@ namespace StudentManagement.Application.Services.Implementation
             course.Name = CourseUpdateModel.CourseName;
             course.StartDate = CourseUpdateModel.StartDate;
 
-            _context.Courses.Update(course);
-            _context.SaveChanges();
+            context.Courses.Update(course);
+            context.SaveChanges();
 
             return course;
         }
