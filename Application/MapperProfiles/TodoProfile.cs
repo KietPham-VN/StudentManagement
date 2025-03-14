@@ -17,14 +17,17 @@ namespace StudentManagement.Application.MapperProfiles
             // Map Course to CourseCreateModel destination
             CreateMap<CourseCreateModel, Course>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CourseName))
-                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate));
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate)).ReverseMap();
             // Map CourseCreateModel to Course
-            CreateMap<Course, CourseCreateModel>()
-                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate));
+
             CreateMap<Course, CourseViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+                .ForMember(dest => dest.Name, config =>
+                {
+                    config.PreCondition(src => src.Name != null);
+                    config.MapFrom(src => src.Name);
+                });
         }
     }
 }
+

@@ -5,7 +5,7 @@ namespace StudentManagement.Domain.Entities
     public class Course : ICreatedAt, ICreatedBy, IUpdatedAt, IUpdatedBy, ISoftDelete
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public DateTime StartDate { get; set; }
         public virtual ICollection<CourseStudent> CourseStudents { get; set; }
         public DateTime CreatedAt { get; set; }

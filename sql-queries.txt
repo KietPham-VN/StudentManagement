@@ -159,3 +159,9 @@ WHERE [Id] = @p14;
 [40 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy]
 FROM [Courses] AS [c]
 WHERE [c].[IsDeleted] = CAST(0 AS bit)
+[44 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy]
+FROM [Courses] AS [c]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+[45 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy]
+FROM [Courses] AS [c]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
