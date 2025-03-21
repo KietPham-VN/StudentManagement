@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StudentManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,7 +53,8 @@ namespace StudentManagement.Migrations
                 name: "Questions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     QuestionText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OptionA = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OptionB = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -85,18 +86,18 @@ namespace StudentManagement.Migrations
                 name: "Exams",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
                     ExamName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CourseId1 = table.Column<int>(type: "int", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Exams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Exams_Courses_CourseId1",
-                        column: x => x.CourseId1,
+                        name: "FK_Exams_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -131,9 +132,10 @@ namespace StudentManagement.Migrations
                 name: "ExamQuestions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    QuestionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExamId = table.Column<int>(type: "int", nullable: false),
+                    QuestionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -183,12 +185,12 @@ namespace StudentManagement.Migrations
                 name: "ExamSubmissions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExamId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
                     Score = table.Column<float>(type: "real", nullable: false),
-                    SubmittedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StudentId1 = table.Column<int>(type: "int", nullable: false)
+                    SubmittedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -200,8 +202,8 @@ namespace StudentManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ExamSubmissions_Students_StudentId1",
-                        column: x => x.StudentId1,
+                        name: "FK_ExamSubmissions_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -211,9 +213,10 @@ namespace StudentManagement.Migrations
                 name: "StudentAnswers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExamSubmissionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    QuestionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExamSubmissionId = table.Column<int>(type: "int", nullable: false),
+                    QuestionId = table.Column<int>(type: "int", nullable: false),
                     SelectedAnswer = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     IsCorrect = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -250,9 +253,9 @@ namespace StudentManagement.Migrations
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exams_CourseId1",
+                name: "IX_Exams_CourseId",
                 table: "Exams",
-                column: "CourseId1");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExamSubmissions_ExamId",
@@ -260,9 +263,9 @@ namespace StudentManagement.Migrations
                 column: "ExamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExamSubmissions_StudentId1",
+                name: "IX_ExamSubmissions_StudentId",
                 table: "ExamSubmissions",
-                column: "StudentId1");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentAnswers_ExamSubmissionId",

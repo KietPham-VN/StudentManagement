@@ -12,8 +12,8 @@ using StudentManagement.Infrastructures;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250321090940_initDb")]
-    partial class initDb
+    [Migration("20250321111258_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -124,14 +124,13 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Exam", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CourseId1")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -143,22 +142,24 @@ namespace StudentManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId1");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Exams");
                 });
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.ExamQuestion", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ExamId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -171,20 +172,19 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.ExamSubmission", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ExamId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
 
                     b.Property<float>("Score")
                         .HasColumnType("real");
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("StudentId1")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SubmittedAt")
@@ -194,16 +194,18 @@ namespace StudentManagement.Migrations
 
                     b.HasIndex("ExamId");
 
-                    b.HasIndex("StudentId1");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("ExamSubmissions");
                 });
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Question", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CorrectAnswer")
                         .IsRequired()
@@ -300,18 +302,20 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.StudentAnswer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ExamSubmissionId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExamSubmissionId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("SelectedAnswer")
                         .IsRequired()
@@ -349,7 +353,7 @@ namespace StudentManagement.Migrations
                 {
                     b.HasOne("StudentManagement.Domain.Entities.Course", "Course")
                         .WithMany("Exams")
-                        .HasForeignKey("CourseId1")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -385,7 +389,7 @@ namespace StudentManagement.Migrations
 
                     b.HasOne("StudentManagement.Domain.Entities.Student", "Student")
                         .WithMany("ExamSubmissions")
-                        .HasForeignKey("StudentId1")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

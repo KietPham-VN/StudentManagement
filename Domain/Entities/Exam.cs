@@ -2,8 +2,8 @@
 
 public class Exam
 {
-    public Guid Id { get; set; }
-    public Guid CourseId { get; set; }
+    public int Id { get; set; }
+    public int CourseId { get; set; }
     public string ExamName { get; set; }
     public DateTime CreatedAt { get; set; }
 

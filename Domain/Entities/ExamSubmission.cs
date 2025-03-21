@@ -2,9 +2,9 @@
 
 public class ExamSubmission
 {
-    public Guid Id { get; set; }
-    public Guid ExamId { get; set; }
-    public Guid StudentId { get; set; }
+    public int Id { get; set; }
+    public int ExamId { get; set; }
+    public int StudentId { get; set; }
     public float Score { get; set; }
     public DateTime SubmittedAt { get; set; }
 

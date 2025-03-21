@@ -203,3 +203,177 @@ ORDER BY [MigrationId];
 [2 ms] SELECT [MigrationId], [ProductVersion]
 FROM [__EFMigrationsHistory]
 ORDER BY [MigrationId];
+[91 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Students] ([Address], [Balance], [DateOfBirth], [Surname], [LastName], [SchoolId])
+OUTPUT INSERTED.[Id], INSERTED.[Age]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+
+[96 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [ActionTime], [EntityName], [NewValue], [OldValue])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+
+[6 ms] SELECT [e1].[Id], [e1].[CourseId], [e1].[CreatedAt], [e1].[ExamName], [s].[Id], [s].[ExamId], [s].[QuestionId], [s].[Id0], [s].[CorrectAnswer], [s].[CreatedAt], [s].[OptionA], [s].[OptionB], [s].[OptionC], [s].[OptionD], [s].[QuestionText]
+FROM (
+    SELECT TOP(1) [e].[Id], [e].[CourseId], [e].[CreatedAt], [e].[ExamName]
+    FROM [Exams] AS [e]
+    WHERE [e].[Id] = @__request_ExamId_0
+) AS [e1]
+LEFT JOIN (
+    SELECT [e0].[Id], [e0].[ExamId], [e0].[QuestionId], [q].[Id] AS [Id0], [q].[CorrectAnswer], [q].[CreatedAt], [q].[OptionA], [q].[OptionB], [q].[OptionC], [q].[OptionD], [q].[QuestionText]
+    FROM [ExamQuestions] AS [e0]
+    INNER JOIN [Questions] AS [q] ON [e0].[QuestionId] = [q].[Id]
+) AS [s] ON [e1].[Id] = [s].[ExamId]
+ORDER BY [e1].[Id], [s].[Id]
+[8 ms] SELECT TOP(1) [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+FROM [Students] AS [s]
+WHERE [s].[Id] = @__p_0
+[25 ms] SELECT TOP(1) [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+FROM [Students] AS [s]
+WHERE [s].[Id] = @__p_0
+[30 ms] SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [ExamSubmissions] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[33 ms] SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [StudentAnswers] AS [s]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[3 ms] SELECT [e1].[Id], [e1].[CourseId], [e1].[CreatedAt], [e1].[ExamName], [s].[Id], [s].[ExamId], [s].[QuestionId], [s].[Id0], [s].[CorrectAnswer], [s].[CreatedAt], [s].[OptionA], [s].[OptionB], [s].[OptionC], [s].[OptionD], [s].[QuestionText]
+FROM (
+    SELECT TOP(1) [e].[Id], [e].[CourseId], [e].[CreatedAt], [e].[ExamName]
+    FROM [Exams] AS [e]
+    WHERE [e].[Id] = @__request_ExamId_0
+) AS [e1]
+LEFT JOIN (
+    SELECT [e0].[Id], [e0].[ExamId], [e0].[QuestionId], [q].[Id] AS [Id0], [q].[CorrectAnswer], [q].[CreatedAt], [q].[OptionA], [q].[OptionB], [q].[OptionC], [q].[OptionD], [q].[QuestionText]
+    FROM [ExamQuestions] AS [e0]
+    INNER JOIN [Questions] AS [q] ON [e0].[QuestionId] = [q].[Id]
+) AS [s] ON [e1].[Id] = [s].[ExamId]
+ORDER BY [e1].[Id], [s].[Id]
+[6 ms] SELECT TOP(1) [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+FROM [Students] AS [s]
+WHERE [s].[Id] = @__p_0
+[9 ms] SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [ExamSubmissions] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[36 ms] SELECT [e1].[Id], [e1].[CourseId], [e1].[CreatedAt], [e1].[ExamName], [s].[Id], [s].[ExamId], [s].[QuestionId], [s].[Id0], [s].[CorrectAnswer], [s].[CreatedAt], [s].[OptionA], [s].[OptionB], [s].[OptionC], [s].[OptionD], [s].[QuestionText]
+FROM (
+    SELECT TOP(1) [e].[Id], [e].[CourseId], [e].[CreatedAt], [e].[ExamName]
+    FROM [Exams] AS [e]
+    WHERE [e].[Id] = @__request_ExamId_0
+) AS [e1]
+LEFT JOIN (
+    SELECT [e0].[Id], [e0].[ExamId], [e0].[QuestionId], [q].[Id] AS [Id0], [q].[CorrectAnswer], [q].[CreatedAt], [q].[OptionA], [q].[OptionB], [q].[OptionC], [q].[OptionD], [q].[QuestionText]
+    FROM [ExamQuestions] AS [e0]
+    INNER JOIN [Questions] AS [q] ON [e0].[QuestionId] = [q].[Id]
+) AS [s] ON [e1].[Id] = [s].[ExamId]
+ORDER BY [e1].[Id], [s].[Id]
+[42 ms] SELECT TOP(1) [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+FROM [Students] AS [s]
+WHERE [s].[Id] = @__p_0
+[48 ms] SET NOCOUNT ON;
+INSERT INTO [ExamSubmissions] ([ExamId], [Score], [StudentId], [SubmittedAt])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+INSERT INTO [StudentAnswers] ([ExamSubmissionId], [IsCorrect], [QuestionId], [SelectedAnswer])
+OUTPUT INSERTED.[Id]
+VALUES (@p4, @p5, @p6, @p7);
+
+[30 ms] SELECT [e1].[Id], [e1].[CourseId], [e1].[CreatedAt], [e1].[ExamName], [s].[Id], [s].[ExamId], [s].[QuestionId], [s].[Id0], [s].[CorrectAnswer], [s].[CreatedAt], [s].[OptionA], [s].[OptionB], [s].[OptionC], [s].[OptionD], [s].[QuestionText]
+FROM (
+    SELECT TOP(1) [e].[Id], [e].[CourseId], [e].[CreatedAt], [e].[ExamName]
+    FROM [Exams] AS [e]
+    WHERE [e].[Id] = @__request_ExamId_0
+) AS [e1]
+LEFT JOIN (
+    SELECT [e0].[Id], [e0].[ExamId], [e0].[QuestionId], [q].[Id] AS [Id0], [q].[CorrectAnswer], [q].[CreatedAt], [q].[OptionA], [q].[OptionB], [q].[OptionC], [q].[OptionD], [q].[QuestionText]
+    FROM [ExamQuestions] AS [e0]
+    INNER JOIN [Questions] AS [q] ON [e0].[QuestionId] = [q].[Id]
+) AS [s] ON [e1].[Id] = [s].[ExamId]
+ORDER BY [e1].[Id], [s].[Id]
+[83 ms] SELECT TOP(1) [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+FROM [Students] AS [s]
+WHERE [s].[Id] = @__p_0
+[88 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ExamSubmissions] ([ExamId], [Score], [StudentId], [SubmittedAt])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+
+[92 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [ActionTime], [EntityName], [NewValue], [OldValue])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+
+[101 ms] SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [ActionTime], [EntityName], [NewValue], [OldValue])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+UPDATE [ExamSubmissions] SET [Score] = @p5
+OUTPUT 1
+WHERE [Id] = @p6;
+INSERT INTO [StudentAnswers] ([ExamSubmissionId], [IsCorrect], [QuestionId], [SelectedAnswer])
+OUTPUT INSERTED.[Id]
+VALUES (@p7, @p8, @p9, @p10);
+
+[105 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [ActionTime], [EntityName], [NewValue], [OldValue])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+
+[33 ms] SELECT [e1].[Id], [e1].[CourseId], [e1].[CreatedAt], [e1].[ExamName], [s].[Id], [s].[ExamId], [s].[QuestionId], [s].[Id0], [s].[CorrectAnswer], [s].[CreatedAt], [s].[OptionA], [s].[OptionB], [s].[OptionC], [s].[OptionD], [s].[QuestionText]
+FROM (
+    SELECT TOP(1) [e].[Id], [e].[CourseId], [e].[CreatedAt], [e].[ExamName]
+    FROM [Exams] AS [e]
+    WHERE [e].[Id] = @__request_ExamId_0
+) AS [e1]
+LEFT JOIN (
+    SELECT [e0].[Id], [e0].[ExamId], [e0].[QuestionId], [q].[Id] AS [Id0], [q].[CorrectAnswer], [q].[CreatedAt], [q].[OptionA], [q].[OptionB], [q].[OptionC], [q].[OptionD], [q].[QuestionText]
+    FROM [ExamQuestions] AS [e0]
+    INNER JOIN [Questions] AS [q] ON [e0].[QuestionId] = [q].[Id]
+) AS [s] ON [e1].[Id] = [s].[ExamId]
+ORDER BY [e1].[Id], [s].[Id]
+[39 ms] SELECT TOP(1) [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+FROM [Students] AS [s]
+WHERE [s].[Id] = @__p_0
+[43 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ExamSubmissions] ([ExamId], [Score], [StudentId], [SubmittedAt])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+
+[46 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [ActionTime], [EntityName], [NewValue], [OldValue])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+
+[49 ms] SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [ActionTime], [EntityName], [NewValue], [OldValue])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+UPDATE [ExamSubmissions] SET [Score] = @p5
+OUTPUT 1
+WHERE [Id] = @p6;
+INSERT INTO [StudentAnswers] ([ExamSubmissionId], [IsCorrect], [QuestionId], [SelectedAnswer])
+OUTPUT INSERTED.[Id]
+VALUES (@p7, @p8, @p9, @p10);
+
+[54 ms] SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [ActionTime], [EntityName], [NewValue], [OldValue])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+

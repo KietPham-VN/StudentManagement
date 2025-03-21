@@ -2,9 +2,9 @@
 
 public class StudentAnswer
 {
-    public Guid Id { get; set; }
-    public Guid ExamSubmissionId { get; set; }
-    public Guid QuestionId { get; set; }
+    public int Id { get; set; }
+    public int ExamSubmissionId { get; set; }
+    public int QuestionId { get; set; }
     public char SelectedAnswer { get; set; }
     public bool IsCorrect { get; set; }
 

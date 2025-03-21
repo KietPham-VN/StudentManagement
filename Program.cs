@@ -13,6 +13,7 @@ builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ISchoolService, SchoolService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddAutoMapper(typeof(TodoProfile));
+builder.Services.AddScoped<IExamService, ExamService>();
 // DI container, IServiceProvider
 
 var app = builder.Build();
