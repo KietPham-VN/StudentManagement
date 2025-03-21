@@ -11,6 +11,12 @@ namespace StudentManagement.Infrastructures
         DbSet<Course> Courses { get; set; }
         DbSet<CourseStudent> CourseStudents { get; set; }
         DbSet<AuditLog> AuditLogs { get; set; }
+        DbSet<Question> Questions { get; set; }
+        DbSet<Exam> Exams { get; set; }
+        DbSet<ExamQuestion> ExamQuestions { get; set; }
+        DbSet<ExamSubmission> ExamSubmissions { get; set; }
+        DbSet<StudentAnswer> StudentAnswers { get; set; }
+
 
         EntityEntry<T> Entity<T>(T entity) where T : class;
 

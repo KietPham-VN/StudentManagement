@@ -165,3 +165,41 @@ WHERE [c].[IsDeleted] = CAST(0 AS bit)
 [45 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy]
 FROM [Courses] AS [c]
 WHERE [c].[IsDeleted] = CAST(0 AS bit)
+[4 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy]
+FROM [Courses] AS [c]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+[6 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy]
+FROM [Courses] AS [c]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+[92 ms] SELECT [c1].[Name], [c].[AssignmentScore] AS [AssginmentScore], [c].[PracticalScore], [c].[FinalScore]
+FROM [CourseStudents] AS [c]
+INNER JOIN (
+    SELECT [c0].[Id], [c0].[Name]
+    FROM [Courses] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit)
+) AS [c1] ON [c].[CourseId] = [c1].[Id]
+WHERE [c].[StudentId] = @__StudentId_0
+[37 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy], [s0].[CourseId], [s0].[StudentId], [s0].[AssignmentScore], [s0].[FinalScore], [s0].[PracticalScore], [s0].[Id], [s0].[Address], [s0].[Age], [s0].[Balance], [s0].[DateOfBirth], [s0].[Surname], [s0].[LastName], [s0].[SchoolId]
+FROM [Courses] AS [c]
+LEFT JOIN (
+    SELECT [c0].[CourseId], [c0].[StudentId], [c0].[AssignmentScore], [c0].[FinalScore], [c0].[PracticalScore], [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+    FROM [CourseStudents] AS [c0]
+    INNER JOIN [Students] AS [s] ON [c0].[StudentId] = [s].[Id]
+) AS [s0] ON [c].[Id] = [s0].[CourseId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+ORDER BY [c].[Id], [s0].[CourseId], [s0].[StudentId]
+[6 ms] SELECT [c].[Id], [c].[CreatedAt], [c].[CreatedBy], [c].[DeletedAt], [c].[DeletedBy], [c].[IsDeleted], [c].[Name], [c].[StartDate], [c].[UpdatedAt], [c].[UpdatedBy], [s0].[CourseId], [s0].[StudentId], [s0].[AssignmentScore], [s0].[FinalScore], [s0].[PracticalScore], [s0].[Id], [s0].[Address], [s0].[Age], [s0].[Balance], [s0].[DateOfBirth], [s0].[Surname], [s0].[LastName], [s0].[SchoolId]
+FROM [Courses] AS [c]
+LEFT JOIN (
+    SELECT [c0].[CourseId], [c0].[StudentId], [c0].[AssignmentScore], [c0].[FinalScore], [c0].[PracticalScore], [s].[Id], [s].[Address], [s].[Age], [s].[Balance], [s].[DateOfBirth], [s].[Surname], [s].[LastName], [s].[SchoolId]
+    FROM [CourseStudents] AS [c0]
+    INNER JOIN [Students] AS [s] ON [c0].[StudentId] = [s].[Id]
+) AS [s0] ON [c].[Id] = [s0].[CourseId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+ORDER BY [c].[Id], [s0].[CourseId], [s0].[StudentId]
+[4 ms] SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2 ms] SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];

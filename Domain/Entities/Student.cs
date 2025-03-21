@@ -12,5 +12,6 @@
         public int SchoolId { get; set; }
         public virtual School? School { get; set; }
         public virtual ICollection<CourseStudent> CourseStudents { get; set; }
+        public ICollection<ExamSubmission> ExamSubmissions { get; set; }
     }
 }

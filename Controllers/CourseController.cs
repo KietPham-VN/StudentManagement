@@ -3,7 +3,7 @@ using StudentManagement.Application.DTOs.CourseDTO;
 using StudentManagement.Application.Services.Interfaces;
 using StudentManagement.Domain.Entities;
 
-namespace StudentManagement.Controllers.Implementations
+namespace StudentManagement.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -66,6 +66,14 @@ namespace StudentManagement.Controllers.Implementations
         {
             var Course = courseService.DeleteCourse(id);
             return Course != null ? Ok("Delete Successfully") : NotFound(new { message = $"No Course Found With ID: {id}" });
+        }
+        
+        [HttpGet("course/students")]
+        [ProducesResponseType(typeof(List<CourseDetailsModel>), 200)]
+        public IActionResult GetCourseDetails()
+        {
+            var courseDetails = courseService.GetCourseDetails();
+            return Ok(courseDetails);
         }
     }
 }

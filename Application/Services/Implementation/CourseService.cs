@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StudentManagement.Application.DTOs.CourseDTO;
+using StudentManagement.Application.DTOs.StudentDTO;
 using StudentManagement.Application.Services.Interfaces;
 using StudentManagement.Domain.Entities;
 using StudentManagement.Infrastructures;
@@ -64,7 +66,7 @@ namespace StudentManagement.Application.Services.Implementation
             context.SaveChanges();
             return course;
         }
-
+        
         public Course? EditCourse(CourseUpdateModel CourseUpdateModel, int Id)
         {
             if (string.IsNullOrWhiteSpace(CourseUpdateModel.CourseName) || Id <= 0)
@@ -85,6 +87,17 @@ namespace StudentManagement.Application.Services.Implementation
             context.SaveChanges();
 
             return course;
+        }
+
+        public List<CourseDetailsModel> GetCourseDetails()
+        {
+            var courses = context.Courses
+                .Include(c => c.CourseStudents)
+                .ThenInclude(cs => cs.Student)
+                .AsNoTracking()
+                .ToList();
+
+            return mapper.Map<List<CourseDetailsModel>>(courses);
         }
     }
 }

@@ -9,13 +9,19 @@ using TodoWeb.Infrastructure.interceptors;
 
 namespace StudentManagement.Infrastructures
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : DbContext(options), IApplicationDbContext
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseStudent> CourseStudents { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<ExamQuestion> ExamQuestions { get; set; }
+        public DbSet<ExamSubmission> ExamSubmissions { get; set; }
+        public DbSet<StudentAnswer> StudentAnswers { get; set; }
 
         public EntityEntry<T> Entity<T>(T entity) where T : class
         {
@@ -25,7 +31,8 @@ namespace StudentManagement.Infrastructures
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer("Server=KIETPA\\SQLEXPRESS;Database=StudentManagement;Trusted_Connection=True;TrustServerCertificate=True");
+                .UseSqlServer(
+                    "Server=KIETPA\\SQLEXPRESS;Database=StudentManagement;Trusted_Connection=True;TrustServerCertificate=True");
             // optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.AddInterceptors(
                 new SqlQueriesLoggingInterceptor(),

@@ -15,5 +15,6 @@ namespace StudentManagement.Domain.Entities
         public DateTime? DeletedAt { get; set; }
         public int? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public ICollection<Exam> Exams { get; set; }
     }
 }

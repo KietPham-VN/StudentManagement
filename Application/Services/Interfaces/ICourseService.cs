@@ -14,5 +14,6 @@ namespace StudentManagement.Application.Services.Interfaces
         Course? EditCourse(CourseUpdateModel CourseUpdateModel, int Id);
 
         Course? DeleteCourse(int Id);
+        List<CourseDetailsModel> GetCourseDetails();
     }
 }
